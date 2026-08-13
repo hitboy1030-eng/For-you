@@ -72,6 +72,68 @@
     pointer-events:none;
   }
 
+ /* ============ FLOATING BALLOONS ============ */
+#balloon-layer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.balloon{
+  position: absolute;
+  bottom: -160px;
+  width: 46px;
+  height: 58px;
+  border-radius: 50% 50% 50% 50% / 58% 58% 42% 42%;
+  opacity: 0;
+  animation-name: balloon-rise, balloon-sway;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+}
+
+.balloon::before{
+  content:'';
+  position: absolute;
+  top: -8px; left: 50%;
+  width: 8px; height: 8px;
+  background: inherit;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.balloon::after{
+  content:'';
+  position: absolute;
+  top: 58px; left: 50%;
+  width: 1px; height: 60px;
+  background: rgba(246,239,230,0.25);
+  transform: translateX(-50%);
+}
+
+.balloon.b1{ left: 8%;  width:40px; height:52px; background: radial-gradient(circle at 35% 30%, #f2c9d6, #d9a3a0); animation-duration: 16s, 4s; animation-delay: 0s, 0s; }
+.balloon.b2{ left: 22%; width:52px; height:66px; background: radial-gradient(circle at 35% 30%, #d9c2ec, #c9a6e0); animation-duration: 20s, 5s; animation-delay: 3s, 0.5s; }
+.balloon.b3{ left: 40%; width:36px; height:46px; background: radial-gradient(circle at 35% 30%, #f6efe6, #d9a3a0); animation-duration: 14s, 3.5s; animation-delay: 6s, 1s; }
+.balloon.b4{ left: 58%; width:48px; height:60px; background: radial-gradient(circle at 35% 30%, #f2c9d6, #c9a6e0); animation-duration: 18s, 4.5s; animation-delay: 2s, 0.3s; }
+.balloon.b5{ left: 74%; width:42px; height:54px; background: radial-gradient(circle at 35% 30%, #d9c2ec, #d9a3a0); animation-duration: 22s, 6s; animation-delay: 8s, 0.8s; }
+.balloon.b6{ left: 88%; width:38px; height:48px; background: radial-gradient(circle at 35% 30%, #f6efe6, #c9a6e0); animation-duration: 15s, 3.8s; animation-delay: 4.5s, 0.2s; }
+
+@keyframes balloon-rise{
+  0%{ bottom: -160px; opacity: 0; }
+  8%{ opacity: 0.85; }
+  92%{ opacity: 0.85; }
+  100%{ bottom: 112vh; opacity: 0; }
+}
+
+@keyframes balloon-sway{
+  0%, 100%{ transform: translateX(0); }
+  50%{ transform: translateX(24px); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .balloon{ animation: none; opacity: 0; }
+}
   section, header, footer{ position:relative; z-index:1; }
 
   /* ---------- utility ---------- */
@@ -375,7 +437,14 @@
 </style>
 </head>
 <body>
-
+<div id="balloon-layer">
+  <div class="balloon b1"></div>
+  <div class="balloon b2"></div>
+  <div class="balloon b3"></div>
+  <div class="balloon b4"></div>
+  <div class="balloon b5"></div>
+  <div class="balloon b6"></div>
+</div>
 <div class="bg-gradient"></div>
 <canvas id="bg-canvas"></canvas>
 
